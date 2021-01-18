@@ -1,0 +1,116 @@
+body {
+    background-color:rgb(215, 231, 213);
+    color: grey;
+    margin: 0;
+    padding: 0; 
+    font-family: cursive;
+    font-size: 21px;
+    
+}
+
+.menu{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color:white;
+    font-size: 20px;
+    }
+    
+    a{
+        float: right;
+        display: block;
+        color: grey;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+}
+    a:hover {
+        background-color:lavenderblush;
+    }
+
+h1, h3 {
+    text-align: center;
+
+}
+#listAgurku, #listMoliugu, 
+#listAuginimasA, #listAuginimasM, 
+#listSkynimasA, #listSkynimasM {
+    
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    /* margin: 10px 3px; */
+    text-align: center;
+
+}
+        .boxContent { 
+            box-sizing: border-box;
+            box-shadow: inset 1px 1px 150px lightgrey ;
+            width: 200px;
+            height: 400px;
+            padding: 20px;  
+            text-align: center;
+
+        }
+        .boxContentA {
+            box-sizing: border-box;
+            box-shadow: inset 1px 1px 150px lightgrey;
+            width: 200px;
+            height: 320px;
+            padding: 20px;  
+            text-align: center;
+        }
+        .boxContentS {
+            box-sizing: border-box;
+            box-shadow: inset 1px 1px 150px lightgrey;
+            width: 200px;
+            height: 500px;
+            padding: 20px;  
+            text-align: center;
+        }
+        img {
+            max-width: 100%;
+            
+        }
+        p {
+            font-size: 18px;
+        }
+        input { 
+            border: 2px solid grey;
+            border-radius: 4px;
+            padding: 5px 0px;
+            margin-bottom: 10px;
+            text-align: center;
+            height: 10px;
+            width: 50px;
+        }
+
+.sodinti, .auginti, .nuimti {
+    display: inline-block;
+    border: none;
+    color: grey;
+    border: 2px solid none;
+    border-radius: 30px;
+    background-color: white;
+    font-size: 15px;
+    cursor: pointer;
+    margin-right: 50px;
+    height: 30px;
+    width: 150px;
+
+}
+.btnRauti, .skinti, .btn-skinti {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 25px;
+    background-color: #178a4b;
+    text-align: center;
+    border-radius: 40px;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+
+}
+
