@@ -7,7 +7,7 @@ const listMoliugu = document.querySelector('#listMoliugu');
 const errorMsg = document.querySelector('#error');
 
 document.addEventListener('DOMContentLoaded', () => {
-    axios.post(apiUrl+'/listAgurku', {})
+    axios.post(apiUrl + '/listAgurku', {})
         .then(function(response) {
 
            

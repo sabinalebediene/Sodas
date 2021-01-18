@@ -5,16 +5,18 @@ namespace Main;
 use Cucumber\Agurkas;
 use Pumpkin\Moliugas;
 use Main\Controllers\SodinimasController;
+use Main\Controllers\AuginimasController;
+use Main\Controllers\SkynimasController;
 use Symfony\Component\HttpFoundation\Request;
 
 class App {
 
-    public $request;
+    public static $request;
 
     public static function start()
     {
-        self::$request = Request::createFromGlobals(); // <-----symfonio request objektas
-        
+        self::$request = Request::createFromGlobals();
+
         return self::route();
     }
 
@@ -54,10 +56,53 @@ class App {
             // gera vieta prideti 404 puslapi (jei neatitinka virsuje esanciu if, tada nera tokio psl
         } 
         elseif ('agurkuSkynimas' == $uri[0]) {
-            include DIR. '/agurkuSkynimas.php';
+            if (!isset($uri[1])) {
+                
+                return (new SkynimasController)->index(); 
+            }
+            if ('listSkynimasA' == $uri[1]) {
+            
+                return (new SkynimasController)->listSkynimasA(); 
+            }
+            if ('listSkynimasM' == $uri[1]) {
+                return (new SkynimasController)->listSkynimasM(); 
+            }
+            if ('skintiA' == $uri[1]) {
+                return (new SkynimasController)->skintiA(); 
+            }
+            if ('skintiVisusA' == $uri[1]) {
+                return (new SkynimasController)->skintiVisusA(); 
+            }
+            if ('skintiM' == $uri[1]) {
+                return (new SkynimasController)->skintiM(); 
+            }
+            if ('skintiVisusM' == $uri[1]) {
+                return (new SkynimasController)->skintiVisusM(); 
+            }
+            if ('skintiViska' == $uri[1]) {
+                return (new SkynimasController)->skintiViska(); 
+            }
+            // gera vieta prideti 404 puslapi (jei neatitinka virsuje esanciu if, tada nera tokio psl
         } 
         elseif ('agurkuAuginimas' == $uri[0]) {
-            include DIR. '/agurkuAuginimas.php';
+            if (!isset($uri[1])) {
+                
+                return (new AuginimasController)->index(); 
+            }
+            if ('listAuginimasA' == $uri[1]) {
+            
+                return (new AuginimasController)->listAuginimasA(); 
+            }
+            if ('listAuginimasM' == $uri[1]) {
+                return (new AuginimasController)->listAuginimasM(); 
+            }
+            if ('augintiA' == $uri[1]) {
+                return (new AuginimasController)->augintiA(); 
+            }
+            if ('augintiM' == $uri[1]) {
+                return (new AuginimasController)->augintiM(); 
+            }
+            // gera vieta prideti 404 puslapi (jei neatitinka virsuje esanciu if, tada nera tokio psl
         }
     }
 

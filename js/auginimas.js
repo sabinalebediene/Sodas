@@ -4,11 +4,7 @@ const errorMsg = document.querySelector('#error');
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    axios.post(apiUrlA, {
-
-        listAuginimasA: 1,
-
-        })
+    axios.post(apiUrlA + '/listAuginimasA', {})
         .then(function(response) {
 
             console.log(response.data);
@@ -25,11 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    axios.post(apiUrlA, {
-
-        listAuginimasM: 1,
-
-        })
+    axios.post(apiUrlA  + '/listAuginimasM', {})
         .then(function(response) {
 
             // console.log(response.data);

@@ -3,6 +3,7 @@
 namespace Main\Controllers;
 
 use Main\Store;
+use Main\App;
 use Cucumber\Agurkas;
 use Pumpkin\Moliugas;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,10 +35,9 @@ class SodinimasController {
             ['content-type' => 'text/html']
         );
 
-        $store =  $this->store;
+        // $store =  new Store('darzoves');
         ob_start();
-        include DIR.'/viewsSodinimas/listAgurku.php'; 
-        include DIR.'/viewsSodinimas/listMoliugu.php';
+        include DIR.'/viewsSodinimas/index.php'; 
         $out = ob_get_contents(); // <----gauna info, kuria sius i narsykle
         ob_end_clean();
 
@@ -45,10 +45,7 @@ class SodinimasController {
         $response->setContent($out);
         $response->prepare(App::$request);
 
-        return $response; // <---iskviete route'is, route'is grazina response indexe
-
-        
-        
+        return $response; // <---iskviete route'is, route'is grazina response indexe    
 
     }
 
@@ -76,7 +73,7 @@ class SodinimasController {
     public function listMoliugu() 
     {
         // kreipiames i views ir turime perduoti kintamuosius, tam kad jis galetu uzpildyti template
-        $store = new Store('darzoves');
+        $store = $this->store;
         ob_start();
         include DIR.'/viewsSodinimas/listMoliugu.php';
         $out = ob_get_contents();

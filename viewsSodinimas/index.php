@@ -9,8 +9,8 @@
     <title>Sodinimas</title>
 </head>
 <style>
-<?php include DIR.'css/layout.css'; ?>
-<?php include DIR.'css/style.css'; ?>
+<?php include DIR.'/css/layout.css'; ?>
+<?php include DIR.'/css/style.css'; ?>
 </style>
 <body>
 <header class="menu">
