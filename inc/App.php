@@ -5,8 +5,18 @@ namespace Main;
 use Cucumber\Agurkas;
 use Pumpkin\Moliugas;
 use Main\Controllers\SodinimasController;
+use Symfony\Component\HttpFoundation\Request;
 
 class App {
+
+    public $request;
+
+    public static function start()
+    {
+        self::$request = Request::createFromGlobals(); // <-----symfonio request objektas
+        
+        return self::route();
+    }
 
     public static function route(){
         // imu instaliacini forlderi ir issitrinu, ir kuriame nauja URI i kuri eisime
@@ -19,9 +29,11 @@ class App {
         // patikriname ar tai tas pats failas
         if ('agurkuSodinimas' == $uri[0]) {
             if (!isset($uri[1])) {
+                
                 return (new SodinimasController)->index(); 
             }
             if ('listAgurku' == $uri[1]) {
+            
                 return (new SodinimasController)->listAgurku(); 
             }
             if ('listMoliugu' == $uri[1]) {
