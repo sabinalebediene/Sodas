@@ -124,11 +124,12 @@ class SodinimasController {
         $out = ob_get_contents();
         ob_end_clean(); // narsykle kol kas nieko negauna, bet ta informacija yra susemta ir vieta $out kintamaji
         $json = ['listAgurku' => $out];
-        $json = json_encode($json);
-        header('Content-type: application/json');
-        http_response_code(201);
-        echo $json; // yra kintamasis list, kuriame isgeneruotas agurku sarsas
-        die;
+        
+        $response = new JsonResponse($json); // <---JSON responsas
+
+        $response->prepare(App::$request);
+
+        return $response;
     }
 
     // SODINIMO SCENARIJUS MOLIUGU
@@ -160,7 +161,7 @@ class SodinimasController {
 
         foreach(range(1, $kiekis) as $_) {
             $moliugoObj = new Moliugas($this->store->getNewId());
-            $this->$store->addNewMoliugas($moliugoObj);
+            $this->store->addNewMoliugas($moliugoObj);
         }
 
         ob_start();
@@ -169,11 +170,12 @@ class SodinimasController {
         $out = ob_get_contents();
         ob_end_clean(); // narsykle kol kas nieko negauna, bet ta informacija yra susemta ir vieta $out kintamaji
         $json = ['listMoliugu' => $out];
-        $json = json_encode($json);
-        header('Content-type: application/json');
-        http_response_code(201);
-        echo $json; // yra kintamasis list, kuriame isgeneruotas agurku sarsas
-        die;
+
+        $response = new JsonResponse($json); // <---JSON responsas
+
+        $response->prepare(App::$request);
+
+        return $response;
     }
     
     // ISROVIMO SCENARIJUS AGURKO
@@ -186,12 +188,12 @@ class SodinimasController {
         $out = ob_get_contents();
         ob_end_clean();
         $json = ['listAgurku' => $out];
-        $json = json_encode($json);
-        header('Content-type: application/json');
-        http_response_code(200);
-        echo $json;
-        die;
 
+        $response = new JsonResponse($json); // <---JSON responsas
+
+        $response->prepare(App::$request);
+
+        return $response;
     }
     
     // ISROVIMO SCENARIJUS MOLIUGO
@@ -204,11 +206,12 @@ class SodinimasController {
         $out = ob_get_contents();
         ob_end_clean();
         $json = ['listMoliugu' => $out];
-        $json = json_encode($json);
-        header('Content-type: application/json');
-        http_response_code(200);
-        echo $json;
-        die;
+        
+        $response = new JsonResponse($json); // <---JSON responsas
+
+        $response->prepare(App::$request);
+
+        return $response;
     } 
     
 }

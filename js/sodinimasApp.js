@@ -6,6 +6,53 @@ const listAgurku = document.querySelector('#listAgurku');
 const listMoliugu = document.querySelector('#listMoliugu');
 const errorMsg = document.querySelector('#error');
 
+
+// ROVIMAS AGURKA
+const addNewListA = () => {
+    const agurkai = document.querySelectorAll('.agurkas');
+    agurkai.forEach(agurkas => {
+        
+        agurkas.querySelector('[type=button]').addEventListener('click', () => {
+            const id = agurkas.querySelector('[name=rautiA]').value;
+            
+            axios.post(apiUrl + '/remove', {
+                    id: id,
+                })
+                .then(function(response) {
+                    listAgurku.innerHTML = response.data.listAgurku;
+                    errorMsg.innerHTML = '';
+                    addNewListA();
+                    console.log(addNewListA());
+                })
+                .catch(function(error) {
+                    errorMsg.innerHTML = error.response.data.msg;
+                });
+        });
+    });
+}
+
+// ROVIMAS MOLIUGA
+const addNewListM = () => {
+    const moliugai = document.querySelectorAll('.moliugas');
+    moliugai.forEach(moliugas => {
+        moliugas.querySelector('[type=button]').addEventListener('click', () => {
+            const id = moliugas.querySelector('[name=rautiM]').value;
+            axios.post(apiUrl + '/remove', {
+                    id: id,
+                })
+                .then(function(response) {
+                    listMoliugu.innerHTML = response.data.listMoliugu;
+                    errorMsg.innerHTML = '';
+                    addNewListM();
+                })
+                .catch(function(error) {
+                    errorMsg.innerHTML = error.response.data.msg;
+                });
+        });
+    });
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
     axios.post(apiUrl + '/listAgurku', {})
         .then(function(response) {
@@ -79,55 +126,5 @@ buttonMoliugas.addEventListener('click', () => {
             errorMsg.innerHTML = error.response.data.msg;
         });
 });
-
-// ROVIMAS AGURKA
-const addNewListA = () => {
-    const agurkai = document.querySelectorAll('.agurkas');
-    console.log(listAgurku);
-    agurkai.forEach(agurkas => {
-        console.log(agurkas);
-        agurkas.querySelector('[type=button]').addEventListener('click', () => {
-            const id = agurkas.querySelector('[name=rautiA]').value;
-            axios.post(apiUrl + '/remove', {
-                    id: id,
-                })
-                .then(function(response) {
-
-                    listAgurku.innerHTML = response.data.listAgurku;
-                    errorMsg.innerHTML = '';
-                    addNewListA();
-                    
-                })
-                .catch(function(error) {
-                    console.log(error.response.data.msg);
-                    errorMsg.innerHTML = error.response.data.msg;
-                });
-        });
-    });
-}
-
-// ROVIMAS MOLIUGA
-const addNewListM = () => {
-    const moliugai = document.querySelectorAll('.moliugas');
-    console.log(moliugai);
-    moliugai.forEach(moliugas => {
-        console.log(moliugas);
-        moliugas.querySelector('[type=button]').addEventListener('click', () => {
-            const id = moliugas.querySelector('[name=rautiM]').value;
-            axios.post(apiUrl + '/remove', {
-                    id: id,
-                })
-                .then(function(response) {
-                    listMoliugu.innerHTML = response.data.listMoliugu;
-                    errorMsg.innerHTML = '';
-                    addNewListM();
-                })
-                .catch(function(error) {
-                    console.log(error.response.data.msg);
-                    errorMsg.innerHTML = error.response.data.msg;
-                });
-        });
-    });
-}
 
 

@@ -71,7 +71,7 @@ class AuginimasController {
     public function listAuginimasM() 
     {
         // kreipiames i views ir turime perduoti kintamuosius, tam kad jis galetu uzpildyti template
-        $store =  $this->store;
+        $store = $this->store;
         ob_start();
         include DIR.'/viewsAuginimas/listAuginimasM.php';
         $out = ob_get_contents();
@@ -90,7 +90,7 @@ class AuginimasController {
     // AUGINIMO SCENARIJUS AGURKU
     public function augintiA()
     {
-        $this->$store->augintiAgurkus();
+        $this->store->augintiAgurkus();
         ob_start();
         $store = $this->store;
         include DIR.'/viewsAuginimas/listAuginimasA.php';

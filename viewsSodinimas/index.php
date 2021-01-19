@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" defer integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
-    <script src="http://localhost/Projektas/Sodas/js/app.js" defer></script>
+    <script src="http://localhost/Projektas/Sodas/js/sodinimasApp.js" defer></script>
     <script>const apiUrl = "http://localhost/Projektas/Sodas/agurkuSodinimas";</script>
     <title>Sodinimas</title>
 </head>

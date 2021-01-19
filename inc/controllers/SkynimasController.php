@@ -55,8 +55,9 @@ class SkynimasController {
         $out = ob_get_contents();
         ob_end_clean();
         
-        $json = ['listSkynimasA' => $out];
         
+        $json = ['listSkynimasA' => $out];
+
         $response = new JsonResponse($json); // <---JSON responsas
 
         $response->prepare(App::$request);

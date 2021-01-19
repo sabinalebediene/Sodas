@@ -11,8 +11,11 @@ define('DIR', __DIR__);
 
 
 include __DIR__ . '/bootstrap.php'; // <----- include'iname koridoriu
+// include __DIR__ . '/inc/DBConnnection.php';
 
+// DBConnnection::OpenCon();
 App::start()->send(); // <---startuojam ir issiunciam narsyklei atsakyma
+
 
 // pasileidzia startas
 // startas grazina router, 

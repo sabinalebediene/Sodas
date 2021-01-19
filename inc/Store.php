@@ -105,7 +105,7 @@ class Store {
         foreach($this->data['objA'] as $index => $obj)
         {
             $obj = unserialize($obj); 
-            $obj->addDarzove($_POST['kiekis'][$obj->id]);
+            $obj->addDarzove($obj->auga());
             $obj = serialize($obj); 
             $this->data['objA'][$index] = $obj;
         }
@@ -116,7 +116,7 @@ class Store {
         foreach($this->data['objM'] as $index => $obj)
         {
             $obj = unserialize($obj); 
-            $obj->addDarzove($_POST['kiekis'][$obj->id]);
+            $obj->addDarzove($obj->auga());
             $obj = serialize($obj); 
             $this->data['objM'][$index] = $obj;
         }
@@ -145,8 +145,8 @@ class Store {
     public function skintiVisusAgurkus(){
         foreach($this->data['objA'] as $index => $obj){
             $obj = unserialize($obj); 
-            if ($_POST['skintiVisusA'] == $obj->id) {
-                $obj->removeAllVegatable($_POST['skintiVisusA'][$obj->id]);
+            if ($obj->id == $id) {
+                $obj->removeAllVegatable();
                 $obj = serialize($obj); 
                 $this->data['objA'][$index] = $obj; 
             }
@@ -156,8 +156,8 @@ class Store {
     public function skintiVisusMoliugus(){
         foreach($this->data['objM'] as $index => $obj){
             $obj = unserialize($obj); 
-            if ($_POST['skintiVisusA'] == $obj->id) {
-                $obj->removeAllVegatable($_POST['skintiVisusA'][$obj->id]);
+            if ($obj->id == $id) {
+                $obj->removeAllVegatable();
                 $obj = serialize($obj); 
                 $this->data['objM'][$index] = $obj; 
             }
@@ -167,7 +167,7 @@ class Store {
     public function visuAgurkuNuskynimas(){
         foreach($this->data['objA'] as $index => $obj){
             $obj = unserialize($obj); 
-            $obj->nuskintiVisus($_POST['skintiViska'][$obj->id]);// atimam agurka
+            $obj->nuskintiVisus();// atimam agurka
             $obj = serialize($obj); // vel stringas
             $this->data['objM'][$index] = $obj; // uzsaugom agurkus
         }
@@ -176,7 +176,7 @@ class Store {
     public function visuMoliuguNuskynimas(){
         foreach($this->data['objM'] as $index => $obj){
             $obj = unserialize($obj); 
-            $obj->nuskintiVisus($_POST['skintiViska'][$obj->id]);// atimam agurka
+            $obj->nuskintiVisus();// atimam agurka
             $obj = serialize($obj); // vel stringas
             $this->data['objM'][$index] = $obj; // uzsaugom agurkus
         }
