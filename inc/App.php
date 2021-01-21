@@ -13,11 +13,24 @@ class App {
 
     public static $request;
 
+    private static $storeSetting = 'db'; // json OR DB
+
     public static function start()
     {
         self::$request = Request::createFromGlobals();
 
         return self::route();
+    }
+
+    // factory-gamins objektus json arba DB
+    public static function store($type) 
+    {
+        if ('json' == self::$storeSetting) {
+            return new JsonStore($type);
+        }
+        if ('db' == self::$storeSetting) {
+            return new DbStore($type);
+        }
     }
 
     public static function route(){
@@ -47,10 +60,10 @@ class App {
             if ('sodintiM' == $uri[1]) {
                 return (new SodinimasController)->sodintiM(); 
             }
-            if ('remove' == $uri[1]) {
+            if ('removeA' == $uri[1]) {
                 return (new SodinimasController)->rautiA(); 
             }
-            if ('remove' == $uri[1]) {
+            if ('removeM' == $uri[1]) {
                 return (new SodinimasController)->rautiM(); 
             }
             // gera vieta prideti 404 puslapi (jei neatitinka virsuje esanciu if, tada nera tokio psl
@@ -78,6 +91,9 @@ class App {
             }
             if ('skintiVisusM' == $uri[1]) {
                 return (new SkynimasController)->skintiVisusM(); 
+            }
+            if ('skintiViska' == $uri[1]) {
+                return (new SkynimasController)->skintiViska(); 
             }
             if ('skintiViska' == $uri[1]) {
                 return (new SkynimasController)->skintiViska(); 

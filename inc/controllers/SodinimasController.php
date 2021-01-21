@@ -17,7 +17,7 @@ class SodinimasController {
     public function __construct() 
     {
        if('POST' == $_SERVER['REQUEST_METHOD']) { // jei request metodas - POST, sodiname
-            $this->store = new Store('darzoves');
+            $this->store = App::store('darzoves');
             $this->rawData = App::$request->getContent(); // <----SYMFONY
             $this->rawData = json_decode($this->rawData, 1);
         
@@ -53,8 +53,9 @@ class SodinimasController {
     public function listAgurku() 
     {
         // kreipiames i views ir turime perduoti kintamuosius, tam kad jis galetu uzpildyti template
-        $store =  $this->store;
+        
         ob_start();
+        $store = App::store('darzoves');
         include DIR.'/viewsSodinimas/listAgurku.php';
         $out = ob_get_contents();
         ob_end_clean();
@@ -73,7 +74,7 @@ class SodinimasController {
     public function listMoliugu() 
     {
         // kreipiames i views ir turime perduoti kintamuosius, tam kad jis galetu uzpildyti template
-        $store = $this->store;
+        $store = App::store('darzoves');
         ob_start();
         include DIR.'/viewsSodinimas/listMoliugu.php';
         $out = ob_get_contents();
@@ -117,6 +118,7 @@ class SodinimasController {
         foreach(range(1, $kiekis) as $_) {
             $agurkoObj = new Agurkas($this->store->getNewId());
             $this->store->addNewAgurkas($agurkoObj);
+
         }
         ob_start();
         $store = $this->store;
@@ -124,7 +126,7 @@ class SodinimasController {
         $out = ob_get_contents();
         ob_end_clean(); // narsykle kol kas nieko negauna, bet ta informacija yra susemta ir vieta $out kintamaji
         $json = ['listAgurku' => $out];
-        
+
         $response = new JsonResponse($json); // <---JSON responsas
 
         $response->prepare(App::$request);
@@ -181,14 +183,15 @@ class SodinimasController {
     // ISROVIMO SCENARIJUS AGURKO
     public function rautiA()
     {
-        $this->$store->removeAgurkus($this->rawData['id']);
-        ob_start();
+        $this->store->removeAgurkus($this->rawData['id']);
+
         $store = $this->store;
+        ob_start();
         include DIR.'/viewsSodinimas/listAgurku.php';
         $out = ob_get_contents();
         ob_end_clean();
         $json = ['listAgurku' => $out];
-
+        
         $response = new JsonResponse($json); // <---JSON responsas
 
         $response->prepare(App::$request);
@@ -199,9 +202,9 @@ class SodinimasController {
     // ISROVIMO SCENARIJUS MOLIUGO
     public function rautiM()
     {
-        $this->$store->removeMoliugus($this->rawData['id']);
-        ob_start();
+        $this->store->removeMoliugus($this->rawData['id']);
         $store = $this->store;
+        ob_start();
         include DIR.'/viewsSodinimas/listMoliugu.php';
         $out = ob_get_contents();
         ob_end_clean();

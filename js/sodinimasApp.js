@@ -1,7 +1,5 @@
 const buttonAgurkas = document.querySelector('[name=sodintiA]');
 const buttonMoliugas = document.querySelector('[name=sodintiM]');
-const buttonAugintiA = document.querySelector('[name="augintiA"]');
-const buttonAugintiM = document.querySelector('[name="augintiM"]');
 const listAgurku = document.querySelector('#listAgurku');
 const listMoliugu = document.querySelector('#listMoliugu');
 const errorMsg = document.querySelector('#error');
@@ -11,18 +9,15 @@ const errorMsg = document.querySelector('#error');
 const addNewListA = () => {
     const agurkai = document.querySelectorAll('.agurkas');
     agurkai.forEach(agurkas => {
-        
         agurkas.querySelector('[type=button]').addEventListener('click', () => {
             const id = agurkas.querySelector('[name=rautiA]').value;
-            
-            axios.post(apiUrl + '/remove', {
+            axios.post(apiUrl+'/removeA', {
                     id: id,
                 })
                 .then(function(response) {
                     listAgurku.innerHTML = response.data.listAgurku;
                     errorMsg.innerHTML = '';
                     addNewListA();
-                    console.log(addNewListA());
                 })
                 .catch(function(error) {
                     errorMsg.innerHTML = error.response.data.msg;
@@ -37,13 +32,14 @@ const addNewListM = () => {
     moliugai.forEach(moliugas => {
         moliugas.querySelector('[type=button]').addEventListener('click', () => {
             const id = moliugas.querySelector('[name=rautiM]').value;
-            axios.post(apiUrl + '/remove', {
+            axios.post(apiUrl+'/removeM', {
                     id: id,
                 })
                 .then(function(response) {
                     listMoliugu.innerHTML = response.data.listMoliugu;
                     errorMsg.innerHTML = '';
                     addNewListM();
+// console.log('rado');
                 })
                 .catch(function(error) {
                     errorMsg.innerHTML = error.response.data.msg;
@@ -56,8 +52,6 @@ const addNewListM = () => {
 document.addEventListener('DOMContentLoaded', () => {
     axios.post(apiUrl + '/listAgurku', {})
         .then(function(response) {
-
-           
             listAgurku.innerHTML = response.data.listAgurku;
             errorMsg.innerHTML = '';
             // augurku klases nodai, is naujo pasetint trinimo mygtuko eventus
@@ -74,8 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     axios.post(apiUrl+'/listMoliugu', {})
         .then(function(response) {
-
-            // console.log(response.data);
             listMoliugu.innerHTML = response.data.listMoliugu;
             errorMsg.innerHTML = '';
             // augurku klases nodai, is naujo pasetint trinimo mygtuko eventus
@@ -98,9 +90,9 @@ buttonAgurkas.addEventListener('click', () => {
         .then(function(response) {
            console.log(response.data);
            listAgurku.innerHTML = response.data.listAgurku;
-        //    console.log('agurkas pasodintas');
            errorMsg.innerHTML = '';
            addNewListA();
+           
         
         })
         .catch(function(error) {
