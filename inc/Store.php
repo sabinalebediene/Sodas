@@ -18,4 +18,5 @@ interface Store
     function getAllMoliugus(); 
     function removeAgurkus($id);
     function removeMoliugus($id);
+
 }

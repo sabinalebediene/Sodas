@@ -35,18 +35,18 @@ class DbStore implements Store {
         ;";
         $stmt = $this->pdo->query($sql); // <---saugi
 
-        $allAgurkai = [];
+        $agurkuMasyvas = [];
         while ($row = $stmt->fetch())
         {
             if ('agurkas' == $row['type']) {
-                $objA = new Agurkas(null);
+                $objA = new Agurkas($row['id']);
             }
             $objA->id = $row['id'];
             $objA->count = $row['count'];
             $objA->type = $row['type'];
-            $allAgurkai[] = $objA;
+            $agurkuMasyvas[] = $objA;
         }
-        return $allAgurkai;
+        return $agurkuMasyvas;
 
     }
 
@@ -57,19 +57,19 @@ class DbStore implements Store {
         ;";
         $stmt = $this->pdo->query($sql); // <---saugi
 
-        $allMoliugai = [];
+        $moliuguMasyvas = [];
         while ($row = $stmt->fetch())
         {
             if ('moliūgas' == $row['type']) {
-                $objM = new Moliugas(null);
+                $objM = new Moliugas($row['id']);
             }
             $objM->id = $row['id'];
             $objM->count = $row['count'];
             $objM->type = $row['type'];
-            $allMoliugai[] = $objM;
+            $moliuguMasyvas[] = $objM;
             
         }
-        return $allMoliugai;
+        return $moliuguMasyvas;
     }
 
     public function getNewId()
@@ -77,17 +77,18 @@ class DbStore implements Store {
         return null;
     }
 
-    public function addNewAgurkas(Agurkas $obj)
+    public function addNewAgurkas(Agurkas $objA)
     {
         $sql = "INSERT INTO darzove (`count`, `type`)
-        VALUES ('.$obj->count.', 'agurkas');";
+        VALUES ('.$objA->count.', 'agurkas');";
+        _d($objA);
         $this->pdo->query($sql); // <--- NESAUGU!!!!!!!!!
     }
 
-    public function addNewMoliugas(Moliugas $obj)
+    public function addNewMoliugas(Moliugas $objM)
     {
         $sql = "INSERT INTO darzove (`count`, `type`)
-        VALUES ('.$obj->count.', 'moliugas');";
+        VALUES ('.$objM->count.', 'moliugas');";
         $this->pdo->query($sql); // <--- NESAUGU!!!!!!!!!
     }
 
@@ -102,5 +103,19 @@ class DbStore implements Store {
         WHERE id='".$id."';";
         $this->pdo->query($sql); // <--- NESAUGU!!!!!!!!!
     }
+
+    // public function augintiAgurkus()
+    // {
+    //     $sql = "INSERT INTO darzove (`count`)
+    //     VALUES ('.$obj->count.', 'agurkas');";
+    //     $this->pdo->query($sql); // <--- NESAUGU!!!!!!!!!
+    // }
+
+    // public function  augintiMoliugus()
+    // {
+    //     $sql = "INSERT INTO darzove (`count`)
+    //     VALUES ('.$obj->count.', 'agurkas');";
+    //     $this->pdo->query($sql); // <--- NESAUGU!!!!!!!!!
+    // }
 
 }

@@ -18,7 +18,7 @@ class AuginimasController {
     public function __construct() 
     {
         if('POST' == $_SERVER['REQUEST_METHOD']) { // jei request metodas - POST, sodiname
-            $this->store = new Store('darzoves');
+            $this->store = App::store('darzoves');
             $this->rawData = App::$request->getContent(); // <----SYMFONY
             $this->rawData = json_decode($this->rawData, 1);
         }
