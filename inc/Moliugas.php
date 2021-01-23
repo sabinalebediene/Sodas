@@ -11,6 +11,7 @@ class Moliugas extends Darzoves {
     {
         $this->id = $lastId + 1;
         $this->count = 0;
+        $this->price = 0.1;
         $photos = [
             "./img/Moliugai/moliugas1.jpg", 
             "./img/Moliugai/moliugas2.jpg", 

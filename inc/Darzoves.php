@@ -6,7 +6,7 @@ use Greenhouse\Siltnamis;
 
 abstract class Darzoves implements Siltnamis {
 
-    private $id, $count, $photo;
+    private $id, $count, $price, $photo;
 
     // public static function nuimtiDerliu($visosDarzoves) // <----- $visiAgurkai = $_SESSION['obj']
     // {
@@ -71,6 +71,7 @@ abstract class Darzoves implements Siltnamis {
     // {
 
     // }
+
 
 
 

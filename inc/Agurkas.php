@@ -12,6 +12,7 @@ class Agurkas extends Darzoves {
     {
         $this->id = $lastId + 1;
         $this->count = 0;
+        $this->price = 2.8;
         $photos = [
             "./img/Agurkai/agurkas1.jpg", 
             "./img/Agurkai/agurkas2.jpg", 

@@ -13,7 +13,7 @@ class App {
 
     public static $request;
 
-    private static $storeSetting = 'db'; // json OR DB
+    private static $storeSetting = 'json'; // json OR DB
 
     public static function start()
     {
@@ -122,9 +122,42 @@ class App {
         }
     }
 
+    public static function getRate($DATA) 
+    {
+        $answer = $DATA->get();
+
+        
+        if($answer === false ) {
+
+            // API START
+    
+            // create a new cURL resource
+            $ch = curl_init();
+    
+            // set URL ir reguliuojame cURL
+    
+            curl_setopt(
+                $ch, CURLOPT_URL, 
+                'https://api.exchangeratesapi.io/latest'); // pasako i kuria vieta eisime
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    
+            // darome uzklausa
+            // grab URL and pass it to the browser
+            $answer = curl_exec($ch); // <---- siuntimas ir laukimas atsakymo. PHP sinchtoninis. kol laukia atsakymas, pauze, kodas apacioje nevykdomas
+            $answer = json_decode($answer);
+            $DATA->set($answer); // <----uzkachiname naujus duomenis
+    
+        }
+    
+        $rate = $answer->rates->USD;
+        return $rate;
+    
+    }
+
     public static function redirect($name)
     {
         header('Location: '.URL.$name);
         exit;
     }
+
 }

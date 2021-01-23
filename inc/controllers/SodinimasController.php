@@ -4,6 +4,7 @@ namespace Main\Controllers;
 
 use Main\Store;
 use Main\App;
+use Main\Catche;
 use Cucumber\Agurkas;
 use Pumpkin\Moliugas;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,12 +13,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class SodinimasController {
 
-    private $store, $rawData;
+    private $store, $rawData, $DATA, $rate;
 
     public function __construct() 
     {
        if('POST' == $_SERVER['REQUEST_METHOD']) { // jei request metodas - POST, sodiname
             $this->store = App::store('darzoves');
+            $this->DATA = new Catche;
+            $this->rate = App::getRate($this->DATA);
             $this->rawData = App::$request->getContent(); // <----SYMFONY
             $this->rawData = json_decode($this->rawData, 1);
         
@@ -56,6 +59,7 @@ class SodinimasController {
         
         ob_start();
         $store = App::store('darzoves');
+        $rate = $this->rate;
         include DIR.'/viewsSodinimas/listAgurku.php';
         $out = ob_get_contents();
         ob_end_clean();
@@ -75,6 +79,7 @@ class SodinimasController {
     {
         // kreipiames i views ir turime perduoti kintamuosius, tam kad jis galetu uzpildyti template
         $store = App::store('darzoves');
+        $rate = $this->rate;
         ob_start();
         include DIR.'/viewsSodinimas/listMoliugu.php';
         $out = ob_get_contents();
@@ -122,6 +127,7 @@ class SodinimasController {
         }
         ob_start();
         $store = $this->store;
+        $rate = $this->rate;
         include DIR.'/viewsSodinimas/listAgurku.php'; // <---- liepiame listui sugeneruoti nauja sarasa
         $out = ob_get_contents();
         ob_end_clean(); // narsykle kol kas nieko negauna, bet ta informacija yra susemta ir vieta $out kintamaji
@@ -168,6 +174,7 @@ class SodinimasController {
 
         ob_start();
         $store = $this->store;
+        $rate = $this->rate;
         include DIR.'/viewsSodinimas/listMoliugu.php'; // <---- liepiame listui sugeneruoti nauja sarasa
         $out = ob_get_contents();
         ob_end_clean(); // narsykle kol kas nieko negauna, bet ta informacija yra susemta ir vieta $out kintamaji
@@ -186,6 +193,7 @@ class SodinimasController {
         $this->store->removeAgurkus($this->rawData['id']);
 
         $store = $this->store;
+        $rate = $this->rate;
         ob_start();
         include DIR.'/viewsSodinimas/listAgurku.php';
         $out = ob_get_contents();
@@ -203,7 +211,9 @@ class SodinimasController {
     public function rautiM()
     {
         $this->store->removeMoliugus($this->rawData['id']);
+
         $store = $this->store;
+        $rate = $this->rate;
         ob_start();
         include DIR.'/viewsSodinimas/listMoliugu.php';
         $out = ob_get_contents();

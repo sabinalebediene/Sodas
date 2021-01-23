@@ -8,6 +8,8 @@ use PDO;
 class DbStore implements Store {
 
     private $pdo;
+    private $agurkuMasyvas;
+    private $moliuguMasyvas;
 
     public function __construct()
     {
@@ -40,11 +42,11 @@ class DbStore implements Store {
         {
             if ('agurkas' == $row['type']) {
                 $objA = new Agurkas($row['id']);
+                $objA->id = $row['id'];
+                $objA->count = $row['count'];
+                $objA->type = $row['type'];
+                $agurkuMasyvas[] = $objA;
             }
-            $objA->id = $row['id'];
-            $objA->count = $row['count'];
-            $objA->type = $row['type'];
-            $agurkuMasyvas[] = $objA;
         }
         return $agurkuMasyvas;
 
@@ -60,13 +62,13 @@ class DbStore implements Store {
         $moliuguMasyvas = [];
         while ($row = $stmt->fetch())
         {
-            if ('moliūgas' == $row['type']) {
+            if ('moliugas' == $row['type']) {
                 $objM = new Moliugas($row['id']);
+                $objM->id = $row['id'];
+                $objM->count = $row['count'];
+                $objM->type = $row['type'];
+                $moliuguMasyvas[] = $objM;
             }
-            $objM->id = $row['id'];
-            $objM->count = $row['count'];
-            $objM->type = $row['type'];
-            $moliuguMasyvas[] = $objM;
             
         }
         return $moliuguMasyvas;
@@ -81,7 +83,6 @@ class DbStore implements Store {
     {
         $sql = "INSERT INTO darzove (`count`, `type`)
         VALUES ('.$objA->count.', 'agurkas');";
-        _d($objA);
         $this->pdo->query($sql); // <--- NESAUGU!!!!!!!!!
     }
 
@@ -104,18 +105,30 @@ class DbStore implements Store {
         $this->pdo->query($sql); // <--- NESAUGU!!!!!!!!!
     }
 
-    // public function augintiAgurkus()
-    // {
-    //     $sql = "INSERT INTO darzove (`count`)
-    //     VALUES ('.$obj->count.', 'agurkas');";
-    //     $this->pdo->query($sql); // <--- NESAUGU!!!!!!!!!
-    // }
+    public function augintiAgurkus()
+    {
+        $sql = "UPDATE darzove (`count`);";
+        foreach ($agurkuMasyvas as $row => $objA) {
+            $objA->addDarzove();
+            $objA->count = $row['count'];
 
-    // public function  augintiMoliugus()
-    // {
-    //     $sql = "INSERT INTO darzove (`count`)
-    //     VALUES ('.$obj->count.', 'agurkas');";
-    //     $this->pdo->query($sql); // <--- NESAUGU!!!!!!!!!
-    // }
+            $this->pdo->query($sql);
+        }
+    }
+
+    public function  augintiMoliugus()
+    {
+        foreach ($this->moliuguMasyvas as $row => $objM)  {
+            $objM->addDarzove();
+            
+            //$this->masyvas['obj'][$row] = $obj;
+            $objM->count = $row['count'];
+
+            $sql = "UPDATE darzove
+            SET '.$objM->count.'
+            WHERE 'count';";
+            $this->pdo->query($sql);
+        }
+    }
 
 }
