@@ -88,7 +88,8 @@ class SkynimasController {
     // SKYNIMO SCENARIJUS AGURKO
     public function skintiA()
     {
-        $this->$store->skintiAgurka();
+        $kiekis = (int) $this->rawData['kiekis'];
+        $this->$store->skintiAgurka($this->rawData['id'], $kiekis);
         ob_start();
         $store = $this->store;
         include DIR.'/viewsSkynimas/listSkynimasA.php';

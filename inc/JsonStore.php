@@ -130,9 +130,12 @@ class JsonStore implements Store {
     {
         foreach($this->data['objA'] as $index => $obj){
             $obj = unserialize($obj); 
-            $obj->removeVegatable($_POST['kiekis'][$obj->id]);
+            if ($obj->id == $id) {
+                if ($obj->count < $kiek) break;
+                $obj->count -= $kiekis;
             $obj = serialize($obj); 
             $this->data['objA'][$index] = $obj;
+            }
         }
     }
 
@@ -140,9 +143,12 @@ class JsonStore implements Store {
     {
         foreach($this->data['objM'] as $index => $obj){
             $obj = unserialize($obj); 
-            $obj->removeVegatable($_POST['kiekis'][$obj->id]);
+            if ($obj->id == $id) {
+                if ($obj->count < $kiek) break;
+                $obj->count -= $kiekis;
             $obj = serialize($obj); 
             $this->data['objM'][$index] = $obj;
+            }
         }
     }
 

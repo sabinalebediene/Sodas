@@ -8,8 +8,7 @@ use PDO;
 class DbStore implements Store {
 
     private $pdo;
-    private $agurkuMasyvas;
-    private $moliuguMasyvas;
+
 
     public function __construct()
     {
@@ -45,6 +44,7 @@ class DbStore implements Store {
                 $objA->id = $row['id'];
                 $objA->count = $row['count'];
                 $objA->type = $row['type'];
+                $objA->price = $row['price'];
                 $agurkuMasyvas[] = $objA;
             }
         }
@@ -67,6 +67,7 @@ class DbStore implements Store {
                 $objM->id = $row['id'];
                 $objM->count = $row['count'];
                 $objM->type = $row['type'];
+                $objM->price = $row['price'];
                 $moliuguMasyvas[] = $objM;
             }
             
@@ -81,53 +82,59 @@ class DbStore implements Store {
 
     public function addNewAgurkas(Agurkas $objA)
     {
-        $sql = "INSERT INTO darzove (`count`, `type`)
-        VALUES ('.$objA->count.', 'agurkas');";
-        $this->pdo->query($sql); // <--- NESAUGU!!!!!!!!!
+        $sql = "INSERT INTO darzove (`count`, `type`, `price`)
+        VALUES ('.$objA->count.', 'agurkas', '.$objA->price.');";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        // $this->pdo->query($sql); // <--- NESAUGU!!!!!!!!!
     }
 
     public function addNewMoliugas(Moliugas $objM)
     {
-        $sql = "INSERT INTO darzove (`count`, `type`)
-        VALUES ('.$objM->count.', 'moliugas');";
-        $this->pdo->query($sql); // <--- NESAUGU!!!!!!!!!
+        $sql = "INSERT INTO darzove (`count`, `type`, `price`)
+        VALUES ('.$objM->count.', 'moliugas', '.$objM->price.');";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        // $this->pdo->query($sql); // <--- NESAUGU!!!!!!!!!
     }
 
     public function removeAgurkus($id) {
         $sql = "DELETE FROM darzove
         WHERE id='".$id."';";
-        $this->pdo->query($sql); // <--- NESAUGU!!!!!!!!!
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        // $this->pdo->query($sql); // <--- NESAUGU!!!!!!!!!
     }
 
     public function removeMoliugus($id) {
         $sql = "DELETE FROM darzove
         WHERE id='".$id."';";
-        $this->pdo->query($sql); // <--- NESAUGU!!!!!!!!!
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        // $this->pdo->query($sql); // <--- NESAUGU!!!!!!!!!
     }
 
     public function augintiAgurkus()
     {
-        $sql = "UPDATE darzove (`count`);";
-        foreach ($agurkuMasyvas as $row => $objA) {
-            $objA->addDarzove();
-            $objA->count = $row['count'];
-
-            $this->pdo->query($sql);
+        foreach ($this->getAllAgurkus() as $k => $objA) {
+            $objA->addDarzove($objA->auga());
+            $sql = "UPDATE darzove
+            SET `count` = $objA->count 
+            WHERE `id` = $objA->id ; ";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
         }
     }
 
     public function  augintiMoliugus()
     {
-        foreach ($this->moliuguMasyvas as $row => $objM)  {
-            $objM->addDarzove();
-            
-            //$this->masyvas['obj'][$row] = $obj;
-            $objM->count = $row['count'];
-
+        foreach ($this->getAllMoliugus() as $k => $objM) {
+            $objM->addDarzove($objM->auga());
             $sql = "UPDATE darzove
-            SET '.$objM->count.'
-            WHERE 'count';";
-            $this->pdo->query($sql);
+            SET `count` = $objM->count 
+            WHERE `id` = $objM->id ; ";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
         }
     }
 

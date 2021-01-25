@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
     axios.post(apiUrlS + '/listSkynimasM', {})
         .then(function(response) {
 
-            console.log(response.data.listSkynimasM);
             listSkynimasM.innerHTML = response.data.listSkynimasM;
             errorMsg.innerHTML = '';
             // augurku klases nodai, is naujo pasetint trinimo mygtuko eventus
@@ -54,7 +53,7 @@ const skintiA = () => {
     agurkai.forEach(agurkas => {
         agurkas.querySelector('[type=button]').addEventListener('click', () => {
                 const id = agurkas.querySelector('[name=skintiA]').value;
-                const countA = moliugas.querySelector('[name=kiekis]').value;
+                const countA = agurkas.querySelector('[name=kiekis]').value;
                 axios.post(apiUrlS + '/listSkynimasA', {
                     'id': id,
                     'kiekis': countA,
@@ -141,6 +140,7 @@ const skintiVisusM = () => {
             });
         });
 }
+
 
 buttonSkintiViskaA.addEventListener('click', () => {
     axios.post(apiUrlS + '/listSkynimasA' , {

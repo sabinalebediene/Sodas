@@ -13,7 +13,7 @@ class App {
 
     public static $request;
 
-    private static $storeSetting = 'json'; // json OR DB
+    private static $storeSetting = 'db'; // json OR DB
 
     public static function start()
     {
@@ -90,8 +90,9 @@ class App {
                 return (new SkynimasController)->skintiM(); 
             }
             if ('skintiVisusM' == $uri[1]) {
-                return (new SkynimasController)->skintiVisusM(); 
+                return (new SkynimasController)->skintiVisusM();     
             }
+            
             if ('skintiViska' == $uri[1]) {
                 return (new SkynimasController)->skintiViska(); 
             }
